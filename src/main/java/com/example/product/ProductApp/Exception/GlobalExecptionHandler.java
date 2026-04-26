@@ -22,12 +22,12 @@ public class GlobalExecptionHandler {
 
         ExceptionResponseDTO dto = new ExceptionResponseDTO(
                 web.getDescription(false),
-                HttpStatus.CONFLICT,
+                HttpStatus.NOT_FOUND,
                 ex.getMessage(),
                 LocalDateTime.now()
         );
 
-        return new ResponseEntity<>(dto,HttpStatus.CONFLICT);
+        return new ResponseEntity<>(dto,HttpStatus.NOT_FOUND);
 
        // return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
