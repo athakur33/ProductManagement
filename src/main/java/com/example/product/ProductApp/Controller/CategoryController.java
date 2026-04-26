@@ -1,6 +1,7 @@
 package com.example.product.ProductApp.Controller;
 
 import com.example.product.ProductApp.DTO.CategoryDTO;
+import com.example.product.ProductApp.Exception.CategoryAlreadyExists;
 import com.example.product.ProductApp.Service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,21 @@ public class CategoryController {
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO dto){
         CategoryDTO category = service.createCategory(dto);
         return new ResponseEntity<>(category, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/v2")
+    //http://localhost:8080/api/v1/categories/v2
+    //http://localhost:8080/api/v1/categories
+    public ResponseEntity<?> createCategoryV1(@RequestBody CategoryDTO dto){
+        //CategoryDTO category = service.createCategory(dto);
+        try{
+            CategoryDTO category = service.createCategory(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(category);
+        }
+        catch(CategoryAlreadyExists ex){
+          return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        }
+       // return new ResponseEntity<>(category, HttpStatus.CREATED);
     }
 
     //get Category by id
