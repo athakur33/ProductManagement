@@ -40,5 +40,37 @@ public class ProductImpl implements ProductService {
         return repo.findAll().stream().map(ProductMapper::toDto).toList();
     }
 
+    @Override
+    public ProductDto getbyId(Long id) {
+        Products products = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Givrn product with id " + id + " does not exist"));
+        ProductDto dto = ProductMapper.toDto(products);
+        return dto;
+    }
+
+    @Override
+    public ProductDto updateProduct(Long id, ProductDto dto) {
+        //check for it in db for given id
+        Products products = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Givrn product with id " + id + " does not exist"));
+        //check for category too in category db
+        Category category = repo2.findById(dto.categoryId())
+                .orElseThrow(() -> new RuntimeException("Given category does not exist"));
+        //now update the details to fetched result from dto
+        products.setName(dto.name());
+        products.setDesc(dto.desc());
+        products.setPrice(dto.price());
+        products.setCategory(category);
+        //save the entity to db
+        repo.save(products);
+        return ProductMapper.toDto(products);
+    }
+
+    @Override
+    public String deletebyId(Long id) {
+        repo.deleteById(id);
+        return "Row deleted for given id "+id;
+    }
+
 
 }
