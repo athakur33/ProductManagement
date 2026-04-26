@@ -16,7 +16,7 @@ public class Products {
     private Long id;
     @Column(nullable = false)
     private String name;
-    private String desc;
+    private String description;
     @Column(nullable = false)
     private Double price;
 

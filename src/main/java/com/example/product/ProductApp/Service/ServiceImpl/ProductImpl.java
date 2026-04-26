@@ -58,7 +58,7 @@ public class ProductImpl implements ProductService {
                 .orElseThrow(() -> new RuntimeException("Given category does not exist"));
         //now update the details to fetched result from dto
         products.setName(dto.name());
-        products.setDesc(dto.desc());
+        products.setDescription(dto.description());
         products.setPrice(dto.price());
         products.setCategory(category);
         //save the entity to db
