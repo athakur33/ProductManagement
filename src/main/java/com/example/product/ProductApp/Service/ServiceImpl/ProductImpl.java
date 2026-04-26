@@ -10,6 +10,8 @@ import com.example.product.ProductApp.Service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class ProductImpl implements ProductService {
@@ -32,4 +34,11 @@ public class ProductImpl implements ProductService {
         ProductDto dto1 = ProductMapper.toDto(save);
         return dto1;
     }
+
+    @Override
+    public List<ProductDto> getAllProducts() {
+        return repo.findAll().stream().map(ProductMapper::toDto).toList();
+    }
+
+
 }
