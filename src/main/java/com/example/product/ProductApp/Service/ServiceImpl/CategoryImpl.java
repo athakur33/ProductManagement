@@ -55,4 +55,9 @@ public class CategoryImpl implements CategoryService {
         repo.deleteById(id);
         return "The category entry deleted for "+id;
     }
+
+    @Override
+    public List<CategoryDTO> findAllCategorywithProduct() {
+        return repo.fetchCategoriesWithProducts().stream().map(CategoryMapper :: entityToDto).toList();
+    }
 }

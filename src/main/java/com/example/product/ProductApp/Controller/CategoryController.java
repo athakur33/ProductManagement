@@ -23,6 +23,12 @@ public class CategoryController {
         return new ResponseEntity<>(allCategory,HttpStatus.FOUND);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<CategoryDTO>> getAllCategorywithProduct(){
+        List<CategoryDTO> allCategory = service.findAllCategorywithProduct();
+        return new ResponseEntity<>(allCategory,HttpStatus.FOUND);
+    }
+
 
     //create Categories
     @PostMapping

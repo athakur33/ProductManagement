@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+//@NamedEntityGraph(name = "Category.withProducts",
+//        attributeNodes = @NamedAttributeNode("products"))
 public class Category {
 
     @Id
@@ -19,7 +21,7 @@ public class Category {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //private List<Products> products; //was getting null pointer so intoduced an empty list
     private List<Products> products = new ArrayList<>();
 }
